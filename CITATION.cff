@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "A Computer-Assisted Classification of Knots Realizable with at Most Nine Sticks"
+message: "Please cite the manuscript and the frozen verification package together."
+type: software
+abstract: "A reproducible computer-assisted classification of ordinary unoriented knot types realizable with at most nine sticks, with mirrors identified."
+authors:
+  - name: "K9 Computer-Assisted Proof Project"
+version: "2026.09.15"
+date-released: "2026-09-15"
+repository-code: "https://github.com/griffithwang/k9-computer-assisted-proof"
+license: CC-BY-4.0
