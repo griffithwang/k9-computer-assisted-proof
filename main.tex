@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,enumitem,hyperref,microtype}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newcommand{\K}{\mathcal K}
+\newcommand{\Sset}{\mathcal S}
+\title{A Computer-Assisted Classification of Knots Realizable with At Most Nine Sticks}
+\author{The K9 Computer-Assisted Proof Project}
+\date{September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a reproducible computer-assisted classification of ordinary unoriented knot types which admit a polygonal realization with at most nine straight edges (sticks). Mirrors are identified. Subject to three explicit mathematical inputs---the complete rank-three oriented-matroid catalogue on eight elements, the standard low-crossing knot census, and Calvo's at-most-eight-stick classification---we prove that the set consists of 38 types. Subtracting Calvo's twelve at-most-eight types gives exactly 26 types whose stick number is nine. The proof combines a general-position roof reduction, a complete finite source enumeration, strict planar-diagram certificates for Reidemeister moves and strand pickup, and exact rational-coordinate witnesses for the reverse inclusion. We separate the mathematical coverage argument from the trusted software and database boundary, and provide an offline Windows x64 replay package.
+\end{abstract}
+\section{Statement and conventions}
+For a knot type $K$, let $s(K)$ denote the least number of edges in an embedded closed polygon in $\mathbb R^3$ representing $K$. We write $\K_9=\{K:s(K)\leq9\}$. Knots are ordinary, unoriented knot types; mirror images are identified. Polygonal isotopies may temporarily use curves or more edges in the certificate layer.
+
+Let $\Sset$ be the following set of 38 types:
+\begin{center}\begin{tabular}{ll}\toprule
+class & types\\\midrule
+unknot & $0_1$\\
+3--6 crossings & $3_1,4_1,5_1,5_2,6_1,6_2,6_3$\\
+7 crossings & $7_1,\ldots,7_7$\\
+8 crossings & $8_{16},8_{17},8_{18},8_{19},8_{20},8_{21}$\\
+9 crossings & $9_{29},9_{34},9_{35},9_{39},\ldots,9_{49}$\\
+composite & $\mathrm{square},\mathrm{granny},3_1\mathbin\#4_1$\\\bottomrule\end{tabular}\end{center}
+\begin{theorem}[K9 classification]
+Under the external inputs and certificate checks described below, $\K_9=\Sset$.
+\end{theorem}
+Calvo's Theorem 1(iv) gives the following twelve mirror-folded types with at most eight sticks: $0_1,3_1,4_1,5_1,5_2,6_1,6_2,6_3,\mathrm{square},\mathrm{granny},8_{19},8_{20}$. Since a polygon can be subdivided, this is an at-most-eight list.
+\begin{corollary}[Exact nine-stick types]
+The types with $s(K)=9$ are precisely $7_1,\ldots,7_7$; $8_{16},8_{17},8_{18},8_{21}$; $9_{29},9_{34},9_{35},9_{39},\ldots,9_{49}$; and $3_1\mathbin\#4_1$. There are $7+4+14+1=26$ such types.
+\end{corollary}
+\section{Proof architecture}
+The proof is a pair of inclusions. The upper inclusion $\Sset\subseteq\K_9$ is supplied by 38 exact rational-coordinate polygon witnesses, followed by strict projection and named-diagram checks. For the reverse inclusion, a nine-stick polygon is put in general position and reduced to a seven-crossing branch or to a finite signed diagram corpus. Every corpus record is normalized under the global back-side operation, basepoint reversal, relabelling, and mirror folding, then connected by a replayable certificate DAG to one member of $\Sset$.
+
+The logical gates are G1 (source coverage), G2--G4 (normalization and complete naming), G5 (38 witnesses), and G6 (the low-crossing branch and Calvo list). The two inclusions do not use each other as a filter.
+\section{Finite source reduction}
+After subdivision and a small perturbation, choose an exposed vertex as the origin and send the positive half-space to an affine chart by $F(x,y,z)=(x/z,y/z,1/z)$. The two edges adjacent to the exposed vertex become a single all-over roof in the closing shadow; the remaining seven edges have finite affine heights. The roof is not counted as an eighth finite-height edge in the height identities.
+
+Radial projection turns the eight supporting lines into great-circle data. Their signs form a uniform rank-three oriented matroid on eight elements. We use the complete external catalogue of 135 reorientation/relabeling classes. The source program enumerates 43,545,600 unmarked roof/ordering/sign contexts. Four-line circuit and five-line wheel identities impose necessary height-stress conditions. For each normalized flat key, allowed height masks are unioned over all source realizations before any later source can be skipped. This source-fibre quantifier is essential.
+
+The fresh replay produced 43,545,600 source contexts, 18,684,380 preliminary height assignments, 5,269,252 assignments after source union, 3,705,906 records reduced to at most seven crossings, and 83,023 distinct signed records. The replay does not use a conjectural global $a_2$ bound; computed coefficients are auxiliary diagnostics only.
+\section{Diagram certificates and complete coverage}
+The global back-side view reverses the projection orientation and exchanges every over/under choice simultaneously; it preserves writhe and the ordinary knot type. Together with traversal reversal and relabelling it reduces the 83,023 records to 52,347 representatives: 1,068 fixed flip orbits, 30,676 paired orbits, and 20,603 one-sided representatives.
+
+Each local RI, RII, RIII, or proper-strand-pickup certificate contains the before and after darts, crossing parity, cyclic orders, external ports, and the complete reconnection map. A certificate is accepted only after strict PD comparison and parent-hash verification. The naming DAG has domain exactly the 83,023 original records and image exactly the 52,347 representatives; missing, duplicate, foreign, and non-$\Sset$ terminal keys are all zero in the replay.
+
+The reverse inclusion uses exact rational coordinates. For each of the 38 targets the checker recomputes every nonadjacent segment pair, projection parameter, height difference, and embeddedness condition, and then verifies the resulting PD against a fixed standard DT database or an explicitly constructed composite diagram.
+\section{External inputs and reproducibility}
+The oriented-matroid catalogue is used for completeness of the 135 source classes, not reproved here. The low-crossing branch uses the published census through seven crossings. Calvo's paper supplies the twelve at-most-eight ordinary types; its polygon-space path-component counts are not substituted for knot-type counts. Standard DT naming is a database input, with the exact database hash recorded in the artifact.
+
+The accompanying package contains frozen sources, content-addressed inputs, certificates, exact witnesses, a fixed Python and C++ runtime, and a PowerShell entry point. The full relocated replay on Windows 11 x64 returned `PASS_PORTABLE_FULL_PROOF_CHAIN`; the graph stage returned `PASS_EXACT_COMPLETE_COVER`, and the witness stage returned `PASS_FRESH_EXACT_38_INCLUSIONS`. Negative tests reject corrupted or missing inputs, a wrong interpreter version, and incomplete coverage. These are auditable execution claims, not a formal verification of the operating system, compiler, Python implementation, or cited external classifications.
+\section{Limitations}
+This article establishes a computer-assisted ordinary knot-type classification under the stated inputs. It does not claim an independent proof of the oriented-matroid catalogue, the standard knot census, or Calvo's theorem, and it does not replace the separate open goal of a purely structural K9 proof. The artifact targets Windows x64; the relocation test was performed on one physical machine at two absolute paths.
+\nocite{calvo1999,finschi,menasco2019}
+\bibliographystyle{plain}\bibliography{references}
+\end{document}
