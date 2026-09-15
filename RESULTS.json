@@ -1,0 +1,15 @@
+{
+  "theorem": "K9=S under stated external inputs and certificate checks",
+  "at_most_nine_types": 38,
+  "at_most_eight_types_from_calvo": 12,
+  "exactly_nine_types": 26,
+  "source_contexts": 43545600,
+  "retained_height_assignments": 5269252,
+  "signed_records": 83023,
+  "flip_normalized_representatives": 52347,
+  "exact_inclusion_witnesses": 38,
+  "full_receipt": "../K9_Computer_Assisted_Proof_20260915/runs/relocated_full_01/report.json",
+  "full_receipt_sha256": "ccc60ce821b8f25df6c2d326ec30da3c9722d894a7004d456113164177fd8122",
+  "archive_sha256": "2a5ba857d545729a18b14c387ff06f410e560e75ee6c23e0012ff6459e9118a5",
+  "scope": "Windows x64, same-machine relocation, computational proof with external inputs"
+}
